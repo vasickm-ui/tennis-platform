@@ -1,12 +1,13 @@
 import { useNavigate } from "react-router-dom";
+import styles from '../styles/LoginForm.module.css'
 
 function Login() {
 
     const navigate = useNavigate()
 
     return (
-        <div>
-            <h2>Login</h2>
+        <div className={styles.loginContainer}>
+            <h2 className={styles.title}>Login</h2>
 
             <form>
                 <input 

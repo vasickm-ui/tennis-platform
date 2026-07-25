@@ -1,0 +1,9 @@
+.title {
+    color: blue;
+}
+
+.loginContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
