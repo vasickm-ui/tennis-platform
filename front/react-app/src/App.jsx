@@ -1,6 +1,5 @@
 import {Routes, Route} from 'react-router-dom'
-import Login from "./components/LoginForm";
-import Register from "./components/RegisterForm";
+import LoginPage from './pages/LoginPage.jsx'
 import Home from "./pages/Home"
 
 
@@ -11,19 +10,8 @@ function App() {
 
             <Route 
                 path="/" 
-                element={<Login />}
+                element={<LoginPage />}
             />
-
-            <Route 
-                path="/register" 
-                element={<Register />}
-            />
-
-            <Route 
-                path="/home" 
-                element={<Home />}
-            />
-
         </Routes>
 
     );
