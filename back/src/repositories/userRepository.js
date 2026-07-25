@@ -4,7 +4,6 @@ const findAll = async () => {
     return prisma.person.findMany();
 };
 
-
 module.exports = {
     findAll
 }
