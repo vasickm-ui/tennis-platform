@@ -7,9 +7,9 @@ function LoginForm() {
 
     return (
         <div className={styles.loginContainer}>
-            <h2 className={styles.title}>Login</h2>
+            <h2 className={styles.title}>LOGIN</h2>
 
-            <form>
+            <form className={styles.form}>
                 <input 
                     type="email"
                     placeholder="Email"
@@ -21,7 +21,7 @@ function LoginForm() {
                 />
 
                 <button onClick={() => navigate("/home")}>
-                    Login
+                    LOGIN
                 </button>
             </form>
         </div>
