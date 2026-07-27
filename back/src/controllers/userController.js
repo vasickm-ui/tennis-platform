@@ -13,8 +13,40 @@ const getUserById = async (req, res) => {
     return res.json(user)
 }
 
+const registerUser = async (req, res) => {
+    try {
+        const {
+            email,
+            password_hash,
+            first_name,
+            last_name
+        } = req.body
+
+        console.log("REQ.BODY: ", req.body);
+
+        const user = await userService.registerUser({
+            email,
+            password_hash,
+            first_name,
+            last_name
+        });
+
+        return res.status(201).json({
+            message: "User registred successfully!",
+            user: user
+        });
+
+    } catch(error) {
+        console.error(error.stack);
+        return res.status(400).json({
+            message: error.message
+        });
+    }
+}
+
 
 module.exports = {
     getUsers,
-    getUserById
+    getUserById,
+    registerUser
 };
