@@ -5,12 +5,12 @@ import styles from '../styles/LoginPage.module.css'
 
 function LoginPage() {
     const [isRegister, setIsRegister] = useState(false);
-
+    console.log("Is register: " + isRegister)
     return (
         <div className={styles.page}>
             {
                 isRegister
-                ? <RegisterForm/>
+                ? <RegisterForm setIsRegister={setIsRegister}/>
                 : <LoginForm setIsRegister={setIsRegister}/>
             }
         </div>

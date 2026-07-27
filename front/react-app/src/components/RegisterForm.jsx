@@ -1,6 +1,6 @@
 import styles from '../styles/RegisterForm.module.css'
 
-function RegisterForm() {
+function RegisterForm({setIsRegister}) {
 
     return (
         <div className={styles.registerContainer}>
@@ -35,6 +35,11 @@ function RegisterForm() {
                 <button>
                     REGISTER
                 </button>
+
+                <p>
+                    Already have an account? 
+                    <span className={styles.registerLink} onClick={() => setIsRegister(false)}>Login</span>
+                </p>
             </form>
         </div>
     )
