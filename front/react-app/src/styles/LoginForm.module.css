@@ -14,6 +14,7 @@
 .form {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 15px;
 }
 
@@ -42,4 +43,15 @@ input {
     letter-spacing: 1px;
     background: #b1bbc3;
     border: none;
+}
+
+.registerLink {
+    color: #2563eb;
+    cursor: pointer;
+    font-size: 14px;
+    text-decoration: underline;
+}
+
+p {
+    font-size: 14px;
 }

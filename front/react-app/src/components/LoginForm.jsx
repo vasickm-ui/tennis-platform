@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import styles from '../styles/LoginForm.module.css'
 
-function LoginForm() {
+function LoginForm({setIsRegister}) {
 
     const navigate = useNavigate()
 
@@ -23,6 +23,11 @@ function LoginForm() {
                 <button onClick={() => navigate("/home")}>
                     LOGIN
                 </button>
+
+                <p>
+                    Don't have an account? 
+                    <span className={styles.registerLink} onClick={() => setIsRegister(true)}>Register</span>
+                </p>
             </form>
         </div>
     )

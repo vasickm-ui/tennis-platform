@@ -1,12 +1,20 @@
-function Register() {
-    return (
-        <div>
-            <h2>Register</h2>
+import styles from '../styles/RegisterForm.module.css'
 
-            <form>
+function RegisterForm() {
+
+    return (
+        <div className={styles.registerContainer}>
+            <h2 className={styles.title}>REGISTER</h2>
+
+            <form className={styles.form}>
                 <input
                     type="text"
-                    placeholder="Username"
+                    placeholder="First name"
+                />
+
+                <input
+                    type="text"
+                    placeholder="Last name"
                 />
 
                 <input
@@ -19,10 +27,14 @@ function Register() {
                     placeholder="Password"
                 />
 
-                <button>
-                    Register
-                </button>
+                <input
+                    type="password"
+                    placeholder="Confirm password"
+                />
 
+                <button>
+                    REGISTER
+                </button>
             </form>
         </div>
     )
