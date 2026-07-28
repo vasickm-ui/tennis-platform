@@ -35,6 +35,8 @@ userRoutes.get("/:id", controller.getUserById)
  * /users/register:
  *   post:
  *     summary: Register new user
+ *     tags:
+ *       - Users
  *     requestBody:
  *       required: true
  *       content:
@@ -64,5 +66,39 @@ userRoutes.get("/:id", controller.getUserById)
  *         description: User created successfully
  */
 userRoutes.post("/register", controller.registerUser)
+
+/**
+ * @swagger
+ * /users/login:
+ *   post:
+ *     summary: Login user
+ *     description: Authenticate user with email and password
+ *     tags:
+ *       - Users
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *               - password
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 example: nikola@gmail.com
+ *               password:
+ *                 type: string
+ *                 example: password123
+ *     responses:
+ *       200:
+ *         description: Login successful
+ *       401:
+ *         description: Invalid email or password
+ *       400:
+ *         description: Bad request
+ */
+userRoutes.post("/login", controller.loginUser);
 
 module.exports = userRoutes

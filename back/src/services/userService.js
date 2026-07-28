@@ -30,10 +30,37 @@ const registerUser = async (userData) => {
 
 }
 
+const loginUser = async (loginData) => {
+
+    console.log("Service got this data from controller: ", loginData)
+
+    const user = await userRepository.findByEmail(loginData.email);
+    if(!user){
+        throw Error("User with this email does not exists!");
+        return;
+    }
+
+    console.log("Service is processing this data: ", user)
+    console.log("This is what bcrypt compares ", loginData.password, user.password_hash)
+
+    const correctPassword = await bcrypt.compare(
+        loginData.password,
+        user.password_hash
+    )
+
+    if(!correctPassword){
+        throw Error("Incorrect password!");
+        return;
+    }
+
+    return user;
+}
+
 
 
 module.exports = {
     getUsers,
     getUserById, 
-    registerUser
+    registerUser,
+    loginUser
 };

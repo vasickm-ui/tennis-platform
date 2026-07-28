@@ -1,9 +1,18 @@
 import { useNavigate } from "react-router-dom";
-import styles from '../styles/LoginForm.module.css'
+import styles from '../styles/LoginForm.module.css';
+import api from "../api/axios";
 
 function LoginForm({setIsRegister}) {
 
     const navigate = useNavigate()
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+
+
+
+
+    }
 
     return (
         <div className={styles.loginContainer}>
@@ -13,11 +22,13 @@ function LoginForm({setIsRegister}) {
                 <input 
                     type="email"
                     placeholder="Email"
+                    name="email"
                 />
 
                 <input 
                     type="password"
                     placeholder="Password"
+                    name="password"
                 />
 
                 <button onClick={() => navigate("/home")}>
