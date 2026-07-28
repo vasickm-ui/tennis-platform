@@ -55,3 +55,9 @@ input {
 p {
     font-size: 14px;
 }
+
+.error {
+    color: #dc2626;
+    font-size: 12px;
+    align-self: baseline;
+}

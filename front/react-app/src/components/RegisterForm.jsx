@@ -1,6 +1,7 @@
 import styles from '../styles/RegisterForm.module.css'
 import { useState } from 'react';
 import api from '../api/axios';
+import registerSchema from "../validation/registerSchema";
 
 function RegisterForm({setIsRegister}) {
 
@@ -12,22 +13,34 @@ function RegisterForm({setIsRegister}) {
         confirmPassword: ""
     })
 
+    const [errors, setErrors] = useState({});
+
     const handleChange = (e) => {
     setRegisterForm({
         ...registerFormData,
         [e.target.name]: e.target.value
     });
+
+    setErrors({
+        ...errors,
+        [e.target.name]:""
+    })
 }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("SUBMIT CLICKED");
+
         if(registerFormData.password !== registerFormData.confirmPassword){
             alert("Passwords do not match!");
             return;
         }
         
         try {
+
+            setErrors({});
+
+            await registerSchema.validate(registerFormData,{abortEarly: false});
+
             const response = await api.post("/users/register", {
                 first_name: registerFormData.first_name,
                 last_name: registerFormData.last_name,
@@ -38,7 +51,19 @@ function RegisterForm({setIsRegister}) {
             console.log(response.data);
             alert("Registration successful");
         } catch (error) {
-            console.log(error.response?.data || error.message)
+            if (error.name === "ValidationError") {
+
+                const validationErrors = {};
+
+                error.inner.forEach((err) => {
+                    validationErrors[err.path] = err.message;
+                });
+
+                setErrors(validationErrors);
+                return;
+            }
+
+            console.log(error.response?.data || error.message);
         }
     }
 
@@ -53,6 +78,9 @@ function RegisterForm({setIsRegister}) {
                     placeholder="First name"
                     onChange={handleChange}
                 />
+                {errors.first_name && (
+                    <p className={styles.error}>{errors.first_name}</p>
+                )}
 
                 <input
                     name="last_name"
@@ -60,6 +88,9 @@ function RegisterForm({setIsRegister}) {
                     placeholder="Last name"
                     onChange={handleChange}
                 />
+                {errors.last_name && (
+                    <p className={styles.error}>{errors.last_name}</p>
+                )}
 
                 <input
                     name="email"
@@ -67,6 +98,9 @@ function RegisterForm({setIsRegister}) {
                     placeholder="Email"
                     onChange={handleChange}
                 />
+                {errors.email && (
+                    <p className={styles.error}>{errors.email}</p>
+                )}
 
                 <input
                     name="password"
@@ -74,6 +108,9 @@ function RegisterForm({setIsRegister}) {
                     placeholder="Password"
                     onChange={handleChange}
                 />
+                {errors.password && (
+                    <p className={styles.error}>{errors.password}</p>
+                )}
 
                 <input
                     name="confirmPassword"
@@ -81,6 +118,9 @@ function RegisterForm({setIsRegister}) {
                     placeholder="Confirm password"
                     onChange={handleChange}
                 />
+                {errors.confirmPassword && (
+                    <p className={styles.error}>{errors.confirmPassword}</p>
+                )}
 
                 <button type="submit">
                     REGISTER
