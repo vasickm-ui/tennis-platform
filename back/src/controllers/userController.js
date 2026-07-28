@@ -17,16 +17,16 @@ const registerUser = async (req, res) => {
     try {
         const {
             email,
-            password_hash,
+            password,
             first_name,
             last_name
         } = req.body
 
-        console.log("REQ.BODY: ", req.body);
+        console.log("REQUEST BODY: ", req.body);
 
         const user = await userService.registerUser({
             email,
-            password_hash,
+            password,
             first_name,
             last_name
         });

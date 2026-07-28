@@ -1,12 +1,13 @@
 const express = require("express");
 const swaggerUi = require("swagger-ui-express");
 const swaggerJsdoc = require("swagger-jsdoc");
+const cors = require("cors");
 
 const userRoutes = require("./routes/userRoutes");
 
 const app = express();
 
-
+app.use(cors())
 // middleware
 app.use(express.json());
 

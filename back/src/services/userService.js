@@ -17,7 +17,7 @@ const registerUser = async (userData) => {
         throw Error("User with this email adress already exists!");
     }
 
-    const hashedPassword = await bcrypt.hash(userData.password_hash, 10);
+    const hashedPassword = await bcrypt.hash(userData.password, 10);
 
     const newUser = await userRepository.registerUser({
         first_name: userData.first_name,
