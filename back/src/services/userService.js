@@ -10,7 +10,7 @@ const getUserById = async (id) => {
 };
 
 const registerUser = async (userData) => {
-    console.log("User data sent to service from controller:", userData)
+    console.log("User data sent to service from controller", userData)
     const existingUser = await userRepository.findByEmail(userData.email);
 
     if (existingUser) {
