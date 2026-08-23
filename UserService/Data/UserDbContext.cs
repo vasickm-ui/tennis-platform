@@ -16,6 +16,10 @@ public class UserDbContext : DbContext
         modelBuilder.Entity<User>()
             .HasIndex(u => u.Email)
             .IsUnique();
+            
+        modelBuilder.Entity<User>()
+            .Property(u => u.Role)
+            .HasConversion<string>();
     }
 
     public DbSet<User> Users {get; set;}
