@@ -1,6 +1,8 @@
 using UserService.DTOs;
 using UserService.Data;
 using UserService.Models;
+using Microsoft.EntityFrameworkCore;
+using UserService.Exceptions;
 
 namespace UserService.Services;
 
@@ -13,8 +15,14 @@ public class UserService
         _context = context;
     }
 
-    public RegisterResponseDTO Register(RegisterRequestDTO req)
+    public async Task<RegisterResponseDTO> Register(RegisterRequestDTO req)
     {
+        var emailExists = await _context.Users.AnyAsync(u => u.Email == req.Email);
+        if (emailExists)
+        {
+            throw new EmailAlreadyExistsException(req.Email);
+        }
+
         var user = new User
         {
             FirstName = req.FirstName,
