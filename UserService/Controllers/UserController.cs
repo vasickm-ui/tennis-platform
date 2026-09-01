@@ -18,8 +18,8 @@ public class UserController : ControllerBase
     [HttpPost("register")]
     public async Task<IActionResult> Register(RegisterRequestDTO req)
     {
-        var result = await _userService.Register(req);
 
+        var result = await _userService.Register(req);
         return Ok(result);
     }
 }
