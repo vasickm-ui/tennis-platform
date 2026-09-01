@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using UserService.Data;
 using UserService.Exceptions;
+using UserService.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,7 @@ builder.Services.AddDbContext<UserDbContext>(options =>
     .UseSnakeCaseNamingConvention()
 );
 
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<UserService.Services.UserService>();
 
 builder.Services.AddOpenApi();

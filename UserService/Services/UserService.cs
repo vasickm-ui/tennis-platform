@@ -3,21 +3,22 @@ using UserService.Data;
 using UserService.Models;
 using Microsoft.EntityFrameworkCore;
 using UserService.Exceptions;
+using UserService.Repositories;
 
 namespace UserService.Services;
 
 public class UserService
 {
-    private readonly UserDbContext _context;
+    private readonly IUserRepository _repository;
 
-    public UserService(UserDbContext context)
+    public UserService(IUserRepository repo)
     {
-        _context = context;
+        _repository = repo;
     }
 
     public async Task<RegisterResponseDTO> Register(RegisterRequestDTO req)
     {
-        var emailExists = await _context.Users.AnyAsync(u => u.Email == req.Email);
+        var emailExists = await _repository.EmailExistsAsync(req.Email);
         if (emailExists)
         {
             throw new EmailAlreadyExistsException(req.Email);
@@ -31,8 +32,8 @@ public class UserService
             PasswordHash = BCrypt.Net.BCrypt.HashPassword(req.Password)
         };
 
-        _context.Users.Add(user);
-        _context.SaveChanges();
+        await _repository.AddAsync(user);
+      
 
         return new RegisterResponseDTO
         {
