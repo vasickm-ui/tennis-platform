@@ -1,6 +1,7 @@
 using Moq;
 using UserService.Repositories;
 using UserService.DTOs;
+using UserService.Exceptions;
 
 namespace UserService.Tests;
 
@@ -24,6 +25,10 @@ public class UserServiceTests
             Email = "mile@gmail.com",
             Password = "12345678"
         };
+
+        await Assert.ThrowsAsync<EmailAlreadyExistsException>(
+            () => service.Register(request)
+        );
 
     }
 }
