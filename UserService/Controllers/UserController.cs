@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using UserService.DTOs;
 using UserService.Services;
@@ -27,5 +28,12 @@ public class UserController : ControllerBase
     {
         var result = await _userService.Login(request);
         return Ok(result);
+    }
+
+    [Authorize(Roles = "USER")]
+    [HttpGet("testJWT")]
+    public IActionResult Test()
+    {
+        return Ok("This can be done only with jwt! Which means you are authenticated or hacked haha");
     }
 }
