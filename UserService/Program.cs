@@ -20,6 +20,7 @@ builder.Services.AddDbContext<UserDbContext>(options =>
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<UserService.Services.UserService>();
+builder.Services.AddScoped<UserService.Services.JwtService>();
 
 builder.Services.AddOpenApi();
 
