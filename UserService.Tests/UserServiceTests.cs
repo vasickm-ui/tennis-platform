@@ -2,6 +2,7 @@ using Moq;
 using UserService.Repositories;
 using UserService.DTOs;
 using UserService.Exceptions;
+using UserService.Services;
 
 namespace UserService.Tests;
 
@@ -15,8 +16,9 @@ public class UserServiceTests
         mockRepository
             .Setup(r => r.EmailExistsAsync("mile@gmail.com"))
             .ReturnsAsync(true);
-        
-        var service = new UserService.Services.UserService(mockRepository.Object);
+            
+        var jwt = new JwtService();
+        var service = new UserService.Services.UserService(mockRepository.Object, jwt);
 
         var request = new RegisterRequestDTO
         {
