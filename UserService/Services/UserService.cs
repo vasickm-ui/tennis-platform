@@ -4,6 +4,7 @@ using UserService.Models;
 using Microsoft.EntityFrameworkCore;
 using UserService.Exceptions;
 using UserService.Repositories;
+using UserService.Events;
 
 namespace UserService.Services;
 
@@ -12,10 +13,13 @@ public class UserService
     private readonly IUserRepository _repository;
     private readonly JwtService _jwtService;
 
-    public UserService(IUserRepository repo, JwtService jwt)
+    private readonly KafkaProducerService _kafkaProducerService;
+
+    public UserService(IUserRepository repo, JwtService jwt, KafkaProducerService kafka)
     {
         _repository = repo;
         _jwtService = jwt;
+        _kafkaProducerService = kafka;
     }
 
     public async Task<RegisterResponseDTO> Register(RegisterRequestDTO req)
@@ -35,6 +39,14 @@ public class UserService
         };
 
         await _repository.AddAsync(user);
+
+        var userEvent = new UserRegisteredEvent
+        {
+            UserId = user.Id,
+            Email = user.Email
+        };
+
+        await _kafkaProducerService.SendUserRegisteredEventAsync(userEvent);
       
 
         return new RegisterResponseDTO
